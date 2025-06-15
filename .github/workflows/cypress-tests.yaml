@@ -5,24 +5,20 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    # Runs tests in parallel with a matrix strategy
-    strategy:
-      fail-fast: false  # Prevents stopping all parallel jobs if one fails
-      matrix:
-        containers: [1, 2]  # This will create 2 parallel instances
+    # Uncomment the following section to enable parallel runs:
+    # strategy:
+    #   fail-fast: false  # Prevents stopping all parallel jobs if one fails
+    #   matrix:
+    #     containers: [1, 2]  # This will create 2 parallel instances
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Cypress run
-        # Uses the official Cypress GitHub Action to run tests
         uses: cypress-io/github-action@v6
         with:
-          # Removed `start` and `wait-on` since no local server is needed
           record: true
-          parallel: true  # Run in parallel according to the matrix configuration
+          parallel: false
         env:
-          # CYPRESS_RECORD_KEY must be set in GitHub repo → Settings → Secrets → Actions
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # GITHUB_TOKEN allows the action to create annotations and post results back to the GitHub PR
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
