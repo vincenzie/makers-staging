@@ -18,10 +18,7 @@ jobs:
         # Uses the official Cypress GitHub Action to run tests
         uses: cypress-io/github-action@v6
         with:
-          # Starts your server to run end-to-end tests; replace with your actual start command if needed
-          start: npm start
-          wait-on: 'http://localhost:3000'  # Wait until the server is up
-          # Records the tests to Cypress Cloud (must be enabled via the secret)
+          # Removed `start` and `wait-on` since no local server is needed
           record: true
           parallel: true  # Run in parallel according to the matrix configuration
         env:
